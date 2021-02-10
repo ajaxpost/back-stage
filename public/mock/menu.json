@@ -1,0 +1,74 @@
+{
+  "sub1": {
+    "key": "sub1",
+    "title": "首页",
+    "children": [
+      {
+        "title": "系统首页"
+      },
+      {
+        "title": "账户设置"
+      }
+    ]
+  },
+  "sub2": {
+    "key": "sub2",
+    "title": "基础管理",
+    "children": [
+      {
+        "title": "市场管理"
+      },
+      {
+        "title": "摊位管理"
+      },
+      {
+        "title": "竞拍管理"
+      }
+    ]
+  },
+  "sub3": {
+    "key": "sub3",
+    "title": "租凭管理",
+    "children": [
+      {
+        "title": "订单管理"
+      },
+      {
+        "title": "竞拍订单"
+      }
+    ]
+  },
+  "sub4": {
+    "key": "sub4",
+    "title": "用户管理",
+    "children": [
+      {
+        "title": "租户列表"
+      },
+      {
+        "title": "微信会员列表"
+      },
+      {
+        "title": "租户等级"
+      }
+    ]
+  },
+  "sub5": {
+    "key": "sub5",
+    "title": "权限管理",
+    "children": [
+      {
+        "title": "权限管理"
+      },
+      {
+        "title": "部门管理"
+      },
+      {
+        "title": "管理员管理"
+      },
+      {
+        "title": "操作日志"
+      }
+    ]
+  }
+}
