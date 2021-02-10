@@ -1,72 +1,91 @@
 {
   "sub1": {
+    "icon": "<HomeFilled />",
     "key": "sub1",
     "title": "首页",
     "children": [
       {
+        "id": 1,
         "title": "系统首页"
       },
       {
+        "id": 2,
         "title": "账户设置"
       }
     ]
   },
   "sub2": {
+    "icon": "<TagsOutlined />",
     "key": "sub2",
     "title": "基础管理",
     "children": [
       {
+        "id": 3,
         "title": "市场管理"
       },
       {
+        "id": 4,
         "title": "摊位管理"
       },
       {
+        "id": 5,
         "title": "竞拍管理"
       }
     ]
   },
   "sub3": {
+    "icon": "<LaptopOutlined />",
     "key": "sub3",
     "title": "租凭管理",
     "children": [
       {
+        "id": 6,
         "title": "订单管理"
       },
       {
+        "id": 7,
         "title": "竞拍订单"
       }
     ]
   },
   "sub4": {
+    "icon": "<UserOutlined />",
     "key": "sub4",
     "title": "用户管理",
     "children": [
       {
+        "id": 8,
         "title": "租户列表"
       },
       {
+        "id": 9,
         "title": "微信会员列表"
       },
       {
+        "id": 10,
         "title": "租户等级"
       }
     ]
   },
   "sub5": {
+    "icon": "<WomanOutlined />",
     "key": "sub5",
     "title": "权限管理",
     "children": [
       {
+        "id": 11,
         "title": "权限管理"
       },
       {
+        "id": 12,
         "title": "部门管理"
       },
       {
+        "id": 13,
         "title": "管理员管理"
       },
       {
+        "id": 14,
         "title": "操作日志"
       }
     ]

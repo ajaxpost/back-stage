@@ -1,43 +1,95 @@
 import React, { Component } from 'react'
-import { Menu } from 'antd'
-import {
-  HomeOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
-} from '@ant-design/icons'
+import { Menu, Layout, Card } from 'antd'
+import axios from '@/http'
+import MenuItem from 'antd/lib/menu/MenuItem'
+import { HomeFilled } from '@ant-design/icons'
+import { Redirect } from 'react-router-dom'
+const { Header, Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
 class classroom extends Component {
+  state = {
+    menu: {},
+    collapsed: false,
+    icon: [],
+    username: 'XXXX',
+  }
+  onCollapse = (collapsed) => {
+    this.setState({ collapsed })
+  }
   render() {
     return (
-      <div>
-        <Menu style={{ width: 256 }} defaultSelectedKeys={['1']} mode="inline">
-          <SubMenu key="sub1" icon={<HomeOutlined />} title="首页">
-            <Menu.Item key="1">系统首页</Menu.Item>
-            <Menu.Item key="2">账户设置</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub2" icon={<AppstoreOutlined />} title="基础管理">
-            <Menu.Item key="5">市场管理</Menu.Item>
-            <Menu.Item key="6">摊位管理</Menu.Item>
-            <Menu.Item key="7">竞拍管理</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub4" icon={<SettingOutlined />} title="租凭管理">
-            <Menu.Item key="9">订单管理</Menu.Item>
-            <Menu.Item key="10">竞拍订单</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub5" icon={<SettingOutlined />} title="用户管理">
-            <Menu.Item key="11">租户列表</Menu.Item>
-            <Menu.Item key="12">微信会员列表</Menu.Item>
-            <Menu.Item key="13">租户等级</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub6" icon={<SettingOutlined />} title="权限管理">
-            <Menu.Item key="14">权限管理</Menu.Item>
-            <Menu.Item key="15">部门管理</Menu.Item>
-            <Menu.Item key="16">管理员管理</Menu.Item>
-            <Menu.Item key="17">操作日志</Menu.Item>
-          </SubMenu>
-        </Menu>
-      </div>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider
+          collapsible
+          collapsed={this.state.collapsed}
+          onCollapse={this.onCollapse}
+        >
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+            <div
+              style={{
+                height: '50px',
+                lineHeight: '50px',
+                textAlign: 'center',
+                fontSize: '20px',
+                color: '#fff',
+              }}
+            >
+              系统后台管理系统
+            </div>
+            {Object.keys(this.state.menu).map((val, key) => {
+              return (
+                //==================================//此处"val"为变量所以得用[]
+                <SubMenu
+                  key={val}
+                  title={this.state.menu[val].title}
+                  icon={<HomeFilled />}
+                >
+                  {this.state.menu[val].children.map((val) => {
+                    return <MenuItem key={val.id}>{val.title}</MenuItem>
+                  })}
+                </SubMenu>
+              )
+            })}
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header
+            style={{ background: '#fff', borderBottom: '1px solid #ccc' }}
+          >
+            欢迎<span style={{ color: '#ccc' }}>{this.state.username}</span>{' '}
+            上次登录XXXX
+          </Header>
+          <Content>
+            <Card>
+              <p>Card content</p>
+              <p>Card content</p>
+              <p>Card content</p>
+            </Card>
+          </Content>
+          <Footer>底部</Footer>
+        </Layout>
+        <Redirect from="/" to="/classroom"></Redirect>
+      </Layout>
     )
+  }
+  componentDidMount() {
+    axios.get('/api/menu').then((ret) => {
+      this.setState((state) => {
+        return {
+          menu: ret,
+        }
+      })
+    })
+    axios.get('/setIn/info').then((ret) => {
+      if (ret.error === 0) {
+        //获取用户信息成功
+        this.setState(() => {
+          return {
+            username: ret.username,
+          }
+        })
+      }
+    })
   }
 }
 
