@@ -1,8 +1,11 @@
 //登录
 import React, { Component, createRef } from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import axios from '@/http'
+import { connect } from 'react-redux'
+import * as action from '@/store/Actions'
+import * as type from '@/store/Types'
 class login extends Component {
   constructor(props) {
     super(props)
@@ -75,6 +78,8 @@ class login extends Component {
       if (ret.error === 0) {
         //登录成功
         document.cookie = `token=${ret.token};expires=${data};path=/`
+        this.props.setData(type.SETDATA, new Date())
+        document.cookie = `data=${this.props.data};expires=${data};path=/`
         this.props.history.push('/classroom')
 
         window.location.reload()
@@ -85,4 +90,15 @@ class login extends Component {
   }
 }
 
-export default withRouter(login)
+function a(state) {
+  return state
+}
+function b(dispatch) {
+  return {
+    setData(type, payload) {
+      dispatch(action.setData(type, payload))
+    },
+  }
+}
+
+export default connect(a, b)(withRouter(login))

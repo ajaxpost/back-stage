@@ -6,11 +6,13 @@
     "children": [
       {
         "id": 1,
-        "title": "系统首页"
+        "title": "系统首页",
+        "path": "/classroom"
       },
       {
         "id": 2,
-        "title": "账户设置"
+        "title": "账户设置",
+        "path": "/account"
       }
     ]
   },
@@ -21,15 +23,18 @@
     "children": [
       {
         "id": 3,
-        "title": "市场管理"
+        "title": "市场管理",
+        "path": "/bazaar"
       },
       {
         "id": 4,
-        "title": "摊位管理"
+        "title": "摊位管理",
+        "path": "/booth"
       },
       {
         "id": 5,
-        "title": "竞拍管理"
+        "title": "竞拍管理",
+        "path": "/bidding"
       }
     ]
   },
@@ -40,11 +45,13 @@
     "children": [
       {
         "id": 6,
-        "title": "订单管理"
+        "title": "订单管理",
+        "path": "/order"
       },
       {
         "id": 7,
-        "title": "竞拍订单"
+        "title": "竞拍订单",
+        "path": "/orders"
       }
     ]
   },
@@ -55,15 +62,18 @@
     "children": [
       {
         "id": 8,
-        "title": "租户列表"
+        "title": "租户列表",
+        "path": "/tenantList"
       },
       {
         "id": 9,
-        "title": "微信会员列表"
+        "title": "微信会员列表",
+        "path": "/wxMemberList"
       },
       {
         "id": 10,
-        "title": "租户等级"
+        "title": "租户等级",
+        "path": "/tenantLevel"
       }
     ]
   },
@@ -74,19 +84,23 @@
     "children": [
       {
         "id": 11,
-        "title": "权限管理"
+        "title": "权限管理",
+        "path": "/supersuPro"
       },
       {
         "id": 12,
-        "title": "部门管理"
+        "title": "部门管理",
+        "path": "/division"
       },
       {
         "id": 13,
-        "title": "管理员管理"
+        "title": "管理员管理",
+        "path": "/administrator"
       },
       {
         "id": 14,
-        "title": "操作日志"
+        "title": "操作日志",
+        "path": "/logs"
       }
     ]
   }

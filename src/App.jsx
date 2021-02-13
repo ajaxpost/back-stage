@@ -16,7 +16,7 @@ class App extends Component {
       <>
         {this.state.showLogin ? (
           <div>
-            <Route path="/classroom" component={ClassRoom}></Route>
+            <Route path="/" component={ClassRoom}></Route>
           </div>
         ) : (
           <Route path="/login">

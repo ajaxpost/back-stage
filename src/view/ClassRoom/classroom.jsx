@@ -1,29 +1,42 @@
 import React, { Component } from 'react'
-import { Menu, Layout, Card } from 'antd'
+import { Menu, Layout } from 'antd'
 import axios from '@/http'
 import MenuItem from 'antd/lib/menu/MenuItem'
 import { HomeFilled } from '@ant-design/icons'
-import { Redirect } from 'react-router-dom'
+import { Route, Redirect, withRouter, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
+import component from '@/routeComponent'
+
 const { Header, Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
 class classroom extends Component {
+  constructor(props) {
+    super(props)
+  }
   state = {
     menu: {},
-    collapsed: false,
     icon: [],
     username: 'XXXX',
+    message: [],
+    cardLoading: true,
   }
-  onCollapse = (collapsed) => {
-    this.setState({ collapsed })
+
+  getCookie() {
+    let cookie = document.cookie.split('; ')
+    let obj = {}
+    cookie.forEach((val, key) => {
+      let arr = val.split('=')
+      obj[arr[0]] = arr[1]
+    })
+
+    return obj
   }
   render() {
+    let { headerHeight } = this.state
+    let arr = []
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider
-          collapsible
-          collapsed={this.state.collapsed}
-          onCollapse={this.onCollapse}
-        >
+        <Sider>
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <div
               style={{
@@ -45,7 +58,14 @@ class classroom extends Component {
                   icon={<HomeFilled />}
                 >
                   {this.state.menu[val].children.map((val) => {
-                    return <MenuItem key={val.id}>{val.title}</MenuItem>
+                    return (
+                      <MenuItem
+                        key={val.id}
+                        onClick={this.handler.bind(this, val.path)}
+                      >
+                        {val.title}
+                      </MenuItem>
+                    )
                   })}
                 </SubMenu>
               )
@@ -54,29 +74,49 @@ class classroom extends Component {
         </Sider>
         <Layout>
           <Header
-            style={{ background: '#fff', borderBottom: '1px solid #ccc' }}
+            style={{
+              background: '#fff',
+              borderBottom: '1px solid #ccc',
+              position: 'fixed',
+              width: '100%',
+              zIndex: 100,
+            }}
           >
             欢迎<span style={{ color: '#ccc' }}>{this.state.username}</span>{' '}
-            上次登录XXXX
+            本次登录{this.getCookie().data}
           </Header>
-          <Content>
-            <Card>
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
+
+          <Content style={{ marginTop: headerHeight }}>
+            <Switch>
+              {Object.keys(this.state.menu).map((val, key) => {
+                return this.state.menu[val].children.map((val2, key2) => {
+                  let path = val2.path.substr(1)
+                  return (
+                    <Route
+                      key={key}
+                      path={val2.path}
+                      component={component[path]}
+                    ></Route>
+                  )
+                })
+              })}
+              <Redirect from="/" to="/classroom"></Redirect>
+            </Switch>
           </Content>
-          <Footer>底部</Footer>
+          <Footer style={{ textAlign: 'center' }}>
+            版权所有 © 2020 符号摊位管理系统，并保留所有权利。
+          </Footer>
         </Layout>
-        <Redirect from="/" to="/classroom"></Redirect>
       </Layout>
     )
   }
   componentDidMount() {
+    let headerHeight = document.querySelector('header').offsetHeight - 0
     axios.get('/api/menu').then((ret) => {
       this.setState((state) => {
         return {
           menu: ret,
+          headerHeight: headerHeight,
         }
       })
     })
@@ -90,7 +130,27 @@ class classroom extends Component {
         })
       }
     })
+    axios.get('/api/classroom').then((ret) => {
+      this.setState((state) => {
+        return {
+          message: [...state.message, ret],
+          cardLoading: false,
+        }
+      })
+    })
+  }
+  handler(path) {
+    this.props.history.push({
+      pathname: path,
+    })
   }
 }
 
-export default classroom
+function a(state) {
+  return state
+}
+function b(dispatch) {
+  return {}
+}
+
+export default withRouter(connect(a, b)(classroom))
